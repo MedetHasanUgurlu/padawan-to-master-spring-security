@@ -3,3 +3,10 @@ spring:
     user:
       name: root
       password: 1234
+
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/security
+
+

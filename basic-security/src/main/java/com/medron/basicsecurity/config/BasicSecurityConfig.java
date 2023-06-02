@@ -22,6 +22,7 @@ public class BasicSecurityConfig {
 
     */
         httpSecurity.authorizeHttpRequests(request -> {
+
             request
                     .requestMatchers("/notice").authenticated()
                     .requestMatchers("/test").permitAll();
