@@ -16,20 +16,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetails implements UserDetailsService {
-
-    private final CustomerRepository customerRepository;
-
+public class CustomUserService implements UserDetailsService {
+    private final CustomerRepository repository;
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-
-        List<Customer> customer = customerRepository.findByEmail(email);
-        if(customer.size()==0){
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (repository.findByEmail(username) == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(customer.get(0).getRole()));
-        return new User(customer.get(0).getEmail(),customer.get(0).getPassword(),authorities);
+        Customer customer = repository.findByEmail(username);
+        authorities.add(new SimpleGrantedAuthority(customer.getRole()));
+        return new User(customer.getEmail(), customer.getPassword(), authorities);
     }
 }

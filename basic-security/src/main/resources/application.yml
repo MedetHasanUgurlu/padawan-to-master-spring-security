@@ -1,9 +1,4 @@
 spring:
-  security:
-    user:
-      name: root
-      password: 1234
-
   datasource:
     username: root
     password: 1234
@@ -14,6 +9,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
     hibernate:
       ddl-auto: update
 
