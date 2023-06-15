@@ -12,6 +12,7 @@ public class BasicSecurityApplication {
         SpringApplication.run(BasicSecurityApplication.class, args);
 
 
+
     }
 
 }

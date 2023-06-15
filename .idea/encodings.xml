@@ -2,5 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/basic-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/custom-authenticaon-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/custom-authenticaon-provider/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/custom-authentication-provider/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/custom-authentication-provider/src/main/resources" charset="UTF-8" />
   </component>
 </project>
