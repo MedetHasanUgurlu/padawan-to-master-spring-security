@@ -1,6 +1,4 @@
 
-£
-scustom-authentication-provider/src/main/java/com/medron/customauthenticationprovider/controller/TestController.java,c\d\cdb7b3bcdf30b86c42434e2b15d4c3d4bf3ab9ec
 W
 'custom-authentication-provider/mvnw.cmd,c\e\ced79d06afa5d773493c8379c1d8e0de3063725f
 t
@@ -9,11 +7,9 @@ Dcustom-authentication-provider/.mvn/wrapper/maven-wrapper.properties,f\9\f9f79
 Ücustom-authentication-provider/src/test/java/com/medron/customauthenticationprovider/CustomAuthenticationProviderApplicationTests.java,8\3\834925bab931209d60eef89a1997379b42e2f862
 S
 #custom-authentication-provider/mvnw,b\8\b8faa8c8d4759bd4c46770eb0b954343da243dc7
-ô
-icustom-authentication-provider/src/main/java/com/medron/customauthenticationprovider/entity/Customer.java,c\6\c66de8fa617e7bb0743ef57a75562145bf5f5a1d
-•
-ucustom-authentication-provider/src/main/java/com/medron/customauthenticationprovider/controller/NoticeController.java,a\7\a7d061eb1980cc151a851e8c5e41251fcc5fa913
-≤
-Åcustom-authentication-provider/src/main/java/com/medron/customauthenticationprovider/CustomAuthenticationProviderApplication.java,b\8\b8b478a3464ea5fcfbf3e9e5ac50298ae6ec4121
 z
 Jbasic-security/src/main/java/com/medron/basicsecurity/entity/Customer.java,9\1\916bd449f1b8c5c2b0bb3000987be1c014896495
+V
+&custom-authentication-provider/pom.xml,3\e\3e286a2cef35ca405f71aebc51642f5fbfccea48
+Ö
+Ubasic-security/src/main/java/com/medron/basicsecurity/config/BasicSecurityConfig.java,d\b\db7476b87b66b99d354a460a5f925f0ca52e302a
