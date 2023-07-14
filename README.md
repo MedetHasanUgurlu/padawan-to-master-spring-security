@@ -72,8 +72,17 @@ An extension of the UserDetailsService which provides the ability to create new 
 	    void changePassword(String oldPassword, String newPassword);
 	    boolean userExists(String username);
     }
+UserDetailsManager has 3 implementations.
+<div align="center">
+<img src="img_1.png">
+<img src="img.png">
+</div>
 
-###
+> All the above interface and classes use UserDetails and its implementation.
 
-![img.png](img.png)
+
+### UserDetails vs Authentication
+<div align="center">
+<img src="img_2.png"/>
+</div>
 
