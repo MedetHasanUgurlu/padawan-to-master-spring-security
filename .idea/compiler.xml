@@ -8,13 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="basic-security" />
-        <module name="custom-authentication-provider" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="basic-security (1)" target="17" />
       <module name="basic-security (2)" target="17" />
       <module name="custom-authenticaon-provider" target="17" />
+      <module name="custom-authentication-provider" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

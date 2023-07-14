@@ -55,3 +55,25 @@ Create a bean of PasswordEncoder separately.
         return NoOpsPasswordEncoder.getInstance();
     }
 
+### User Management interface and classes
+#### UserDetailsService
+Core interface which loads user-specific data.
+
+    public interface UserDetailsService{
+        UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    }
+#### UserDetailsManager
+An extension of the UserDetailsService which provides the ability to create new users and update existing ones.
+
+    public interface UserDetailsManager extends UserDetailsService {
+	    void createUser(UserDetails user);
+	    void updateUser(UserDetails user);
+	    void deleteUser(String username);
+	    void changePassword(String oldPassword, String newPassword);
+	    boolean userExists(String username);
+    }
+
+###
+
+![img.png](img.png)
+
