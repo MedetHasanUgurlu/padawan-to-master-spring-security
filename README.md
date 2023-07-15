@@ -153,6 +153,28 @@ _**Implementations**_
 </div>
 
 
+## AuthenticationProvider
+The `AuthenticationProvider` in Spring Security takes care of the authentication logic. The default implementation of 
+the `AuthenticationProvider` is to delegate the responsibility of finding the user in the system to 
+a `UserDetailsService` implementation and PasswordEncoder for password validation. But if we have a custom
+authentication requirement that is not fulfilled by Spring Security framework, then we can build our own
+authentication logic by implementing `AuthenticationProvider` interface.
+
+
+It is the responsibility of the `ProviderManager` which is an implementation of AuthenticationManager, 
+to check with all the implementation of `AuthenticationProviders` and try to authenticate the user.
+
+    public interface AuthenticationProvider{
+        Authentication authenticate(Authentication authentication) throws AuthenticationException;
+        boolean supports(Class<?> authentication);
+    }
+
+<div>
+<img src="img_5.png">
+<img src="img_6.png">
+</div>
+
+## CORS 
 
 
 

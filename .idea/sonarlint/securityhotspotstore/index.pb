@@ -7,3 +7,15 @@ Ubasic-security/src/main/java/com/medron/basicsecurity/config/BasicSecurityConfi
 Sbasic-security/src/main/java/com/medron/basicsecurity/config/CustomUserService.java,9\e\9e8ca135f5dabbf21fbf4e4049c246580b791292
 É
 Sbasic-security/src/main/java/com/medron/basicsecurity/BasicSecurityApplication.java,f\e\fe14848810bcb0c134042f46a8e1aef66365a137
+w
+G.idea/sonarlint/issuestore/9/1/916bd449f1b8c5c2b0bb3000987be1c014896495,0\2\022b40fbfdb613314aee9a475be47ae8ce81dfbd
+Å
+Q.idea/sonarlint/securityhotspotstore/f/e/fe14848810bcb0c134042f46a8e1aef66365a137,2\6\263bf0dcf436e2894c4cccb26a00b1677ed551e3
+Å
+Q.idea/sonarlint/securityhotspotstore/d/b/db7476b87b66b99d354a460a5f925f0ca52e302a,4\2\42687580df6637cc1fd3f449d89898172ab6a5a5
+Å
+Q.idea/sonarlint/securityhotspotstore/9/e/9e8ca135f5dabbf21fbf4e4049c246580b791292,b\c\bc4222cea96dc0dad040e1986dbf830bb8e24184
+Å
+Q.idea/sonarlint/securityhotspotstore/9/1/916bd449f1b8c5c2b0bb3000987be1c014896495,1\9\19cc7460abea695753da244c7cb31963110b6447
+w
+G.idea/sonarlint/issuestore/9/e/9e8ca135f5dabbf21fbf4e4049c246580b791292,b\d\bde0178967b1d7dc14872980de92d85e420a7ec1
