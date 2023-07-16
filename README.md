@@ -210,10 +210,28 @@ Other Origins mean the URL being accessed differs from the location that JS is r
         ).and()...
     }
 
+## CROSS-SITE REQUEST FORGERY (CSRF)
+A typical Cross-Site Request Forgery (CSRF or XSRF) attack aims to perform an operation in a web
+application on behalf of a user without their explicit consent. In general, it does not directly steal
+ the user's identity, but it exploits the user to carry out an action without their will.
 
+<div align="center">
+<img src="img_7.png"/>
+<img src="img_8.png">
+</div>
 
+### Handle CSRF
 
+#### Approach 1
+To defeat a CSRF attack, applications need a way to determine if the HTTP request is legitimately generated via the
+application's user interface. The best way to achieve this is through a CSRF token. A CSRF token is a secure random token that 
+is used to prevent CSRF attacks. 
 
+    ...and().csrf().ignoringRequestMatchers("/contact","/register")
+#### Approach 2
+    
+    CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+    requestHandler.setCsrfRequestAttributeName("_csrf");
 
 
 
