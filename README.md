@@ -234,6 +234,50 @@ is used to prevent CSRF attacks.
     requestHandler.setCsrfRequestAttributeName("_csrf");
 
 
+## UNDERSTANDING & IMPLEMENTING AUTHORIZATION
+
+### AUTHENTICATION VS AUTHORIZATION
+<div align="center">
+<table>
+<th>Authentication</th>
+<th>Authorization</th>
+<tr>
+<td>The identity of users are checked for providing the access to system.</td>
+<td>person's or user's authorities are checked for accessing the resources.</td>
+</tr>
+<tr>
+<td>Authentication done before authorization.</td>
+<td>Authorization always happen after authentication.</td>
+</tr>
+<tr>
+<td>It needs usually user's login details.</td>
+<td>It needs user's privilege or roles</td>
+</tr>
+<tr>
+<td>401</td>
+<td>403</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr><tr>
+<td></td>
+<td></td>
+</tr>
+
+</table>
+
+</div>
+
+
 
 
 
