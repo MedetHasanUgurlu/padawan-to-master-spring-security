@@ -268,6 +268,45 @@ is used to prevent CSRF attacks.
 <img src="img_9.png">
 </div>
 
+### CONFIGURING AUTHORITIES INSIDE SPRING
+
+#### Authority
+    .authorizeHttpRequests()
+      .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+      .requestMatchers("/myBalance").hasAnyAuthority("VIEWACCOUNT","VIEWBALANCE")
+
+
+#### Role
+    .authorizeHttpRequests()
+      .requestMatchers("/myAccount").hasRole("USER")
+      .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
+> ROLE should start with `ROLE_` prefix AND ONLY BE USED DB configuration.
+> 
+
+### Authority vs Role
+<div align="center">
+<table>
+<th>Authority</th>
+<th>Role</th>
+<tr>
+<td>Authority is like an individual privilege or an action .</td>
+<td>Role is a group of privileges/actions  </td>
+</tr>
+<tr>
+<td>Restricting access in a fine-grained manner.</td>
+<td>Restricting access in a coarse-grained manner.</td>
+</tr>
+<tr>
+<td>VIEWACCOUNT, VIEWBALANCE</td>
+<td>ROLE_ADMIN, ROLE_USER</td>
+</tr>
+<tr>
+<td>401</td>
+<td>403</td>
+</tr>
+</table>
+</div>
+
 
 
 
