@@ -242,7 +242,7 @@ is used to prevent CSRF attacks.
 <th>Authentication</th>
 <th>Authorization</th>
 <tr>
-<td>The identity of users are checked for providing the access to system.</td>
+<td>The identity of users is checked for providing the access to system.</td>
 <td>person's or user's authorities are checked for accessing the resources.</td>
 </tr>
 <tr>
@@ -257,25 +257,17 @@ is used to prevent CSRF attacks.
 <td>401</td>
 <td>403</td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr><tr>
-<td></td>
-<td></td>
-</tr>
-
 </table>
-
 </div>
+
+    public interface GrantedAuthority{
+      String getAuthority();
+    }
+
+<div align="center">
+<img src="img_9.png">
+</div>
+
 
 
 
