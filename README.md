@@ -174,10 +174,41 @@ to check with all the implementation of `AuthenticationProviders` and try to aut
 <img src="img_6.png">
 </div>
 
-## CORS 
+## CROSS-ORIGIN RESOURCE SHARING (CORS)
+CORS is a protocol that enables scripts running on a browser client to interact with resources from a
+different origin. For example, if a UI aoo wishes to make an API call running on a different
+domain, it would be blocked from doing so by default due to CORS. It is a specification from The World Wide Web Consortium (W3C).
 
+Other Origins mean the URL being accessed differs from the location that JS is running from, by having:
+* a different scheme (HTTP or HTTPS)
+* a different domain
+* a different port
 
+### Handle CORS
 
+#### Approach 1
+    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins="*")
+
+#### Approach 2
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http){
+        http.cors().configurationSource(
+            new CorsConfigurationSource(){
+                @Override
+                public CorsConfiguration getCorsConfiguration(){
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+                    config.setAllowedMethods(Collections.singletonList("*"));
+                    config.setAllowCredentials(true);
+                    config.setAllowedHeaders(Collections.singletonList("*"));
+                    config.setMaxAge(3600L);
+                    return config;
+                }
+            }
+        ).and()...
+    }
 
 
 
