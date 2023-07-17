@@ -281,7 +281,6 @@ is used to prevent CSRF attacks.
       .requestMatchers("/myAccount").hasRole("USER")
       .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
 > ROLE should start with `ROLE_` prefix AND ONLY BE USED DB configuration.
-> 
 
 ### Authority vs Role
 <div align="center">
@@ -308,10 +307,154 @@ is used to prevent CSRF attacks.
 </div>
 
 
+## Custom Filters
+
+### Servlets and Filters
+<div>
+<img src="img_10.png">
+</div>
+
+In Java web apps, Servlet Container (Web Server) takes care of translating the HTTP messages for Java code
+to understand. One of the mostly used servlet containers is Apache Tomcat.\
+Servlet Container converts the HTTP messages into ServletRequest and hand over to Servlet method as a parameter.\
+Similarly, ServletResponse returns as an output to Servlet Container from Servlet. So everything we write inside Java
+web apps are driven by Servlets.
+
+Filters inside Java web applications can be used to intercept each request/response logic. So using the same 
+filters, Spring Security enforce security based on our configurations inside a web application.
 
 
 
+**Filter interface**
 
+    public interface Filter {
+      default void init(FilterConfig filterConfig) throws ServletException {}
+      void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;
+      default void destroy() {}
+    }
+
+
+**Custom Filter**
+
+    public class RequestValidationBeforeFilter  implements Filter {
+    
+        public static final String AUTHENTICATION_SCHEME_BASIC = "Basic";
+        private Charset credentialsCharset = StandardCharsets.UTF_8;
+    
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                throws IOException, ServletException {
+            HttpServletRequest req = (HttpServletRequest) request;
+            HttpServletResponse res = (HttpServletResponse) response;
+            String header = req.getHeader(AUTHORIZATION);
+            if (header != null) {
+                header = header.trim();
+                if (StringUtils.startsWithIgnoreCase(header, AUTHENTICATION_SCHEME_BASIC)) {
+                    byte[] base64Token = header.substring(6).getBytes(StandardCharsets.UTF_8);
+                    byte[] decoded;
+                    try {
+                        decoded = Base64.getDecoder().decode(base64Token);
+                        String token = new String(decoded, credentialsCharset);
+                        int delim = token.indexOf(":");
+                        if (delim == -1) {
+                            throw new BadCredentialsException("Invalid basic authentication token");
+                        }
+                        String email = token.substring(0, delim);
+                        if (email.toLowerCase().contains("test")) {
+                            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                            return;
+                        }
+                    } catch (IllegalArgumentException e) {
+                        throw new BadCredentialsException("Failed to decode basic authentication token");
+                    }
+                }
+            }
+            chain.doFilter(request, response);
+        }
+    }
+
+**SecurityConfig**
+
+    ...
+    .addFilterBefore.......(new RequestValidationBeforeFilter(),BasicAuthenticationFilter.class)
+    ....
+
+
+
+    public class AuthoritiesLoggingAtFilter implements Filter {
+    
+        private final Logger LOG =
+                Logger.getLogger(AuthoritiesLoggingAtFilter.class.getName());
+    
+        @Override
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+                throws IOException, ServletException {
+            LOG.info("Authentication Validation is in progress");
+            chain.doFilter(request, response);
+        }
+    
+    }
+
+
+    ...
+    .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+    ...
+
+
+## JWT
+### Encoded
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+### Decoded
+<div align="center">
+<img src="img_11.png">
+</div>
+
+### VALIDATION OF JWT TOKENS
+<div align="center">
+<img src="img_12.png">
+</div>
+
+### JSESSIONID
+JSESSIONID is a cookie, used for session management in the web application for HTTP Protocol.
+**Disadvantages of JSESSIONID**\
+It is not giving any value for user data.\
+It is not secure.
+
+ 
+### code
+
+    public class JWTTokenGeneratorFilter extends OncePerRequestFilter{
+      @Override
+      public void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain filterChain){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null){
+          SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharsets.UTF_8));
+          String jwt = Jwts.builder.setIssuer("Medron").setSubject("JWT Token")
+            .claim("username",authentication.getName())
+            .claim("authorities",populateAuthorities(authentication.getAuthorities()))
+            .setIssuedAt(new Date())
+            .setExpriration(new Date(( new Date().getTime() + 30000000 ))
+            .signWith(key).compact();
+ 
+          response.setHeader(SecurityConstants.JWT_HEADER, jwt);
+        }
+        filterChain.doFilter(request,response);
+      }
+    }
+
+
+    protected boolean shouldNotFilter(){
+      return !request.getServletPath().equals("/user");
+    }
+
+    private String populateAuthorities(Collection<? extends GrantedAuthority> collection){
+      Set<String> authoritiesSet = new HashSet<>();
+      for(GrantedAuthority authority:collection){
+        authoritiesSet.add(authority.getAuthority());
+      }
+      return String.join(",", authoritiesSet);
+    }
 
 
 
