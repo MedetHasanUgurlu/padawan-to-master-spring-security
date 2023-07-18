@@ -422,7 +422,7 @@ It is not giving any value for user data.\
 It is not secure.
 
  
-### code
+### JWT Token Generator Filter
 
     public class JWTTokenGeneratorFilter extends OncePerRequestFilter{
       @Override
@@ -454,6 +454,38 @@ It is not secure.
         authoritiesSet.add(authority.getAuthority());
       }
       return String.join(",", authoritiesSet);
+    }
+
+
+### JWT Token Validator Filter
+
+    public class JWTTokenValidatorFilter extends OncePerRequestFilter{
+    
+        @Override
+        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException,IOException{
+            String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
+            if(jwt != null){
+                try{
+                    SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes(StandardCharSets.UTF_8));
+                    
+                    Claims claims = Jwts.parseBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+                    String username = String.valueOf(claims.get("username"));
+                    String authorities = (String) claims.get("authorities");
+                    Authentication authentication = new UsernamePasswordAuthenticationToken(username,null, AuthorityUtils.commaSeparetedStringToAuthorityList(authorities));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }catch(Exception e){        
+                    throw new BadCredentialsException("Invalid Token received.");
+                }
+    
+            }
+
+        }
+        filterChain.doFilter(request,response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request){
+        retuern request.getServletPath().equals("/user");
     }
 
 
